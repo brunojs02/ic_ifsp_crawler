@@ -9,7 +9,7 @@ public class BrowserPhantomJS {
 	private WebDriver driver;
 	
 	public WebDriver getDriver(){
-		File filePathToPhantom = new File("/home/bruno/workspace-ic/phantomjs/bin/phantomjs");
+		File filePathToPhantom = new File("/home/bruno/workspace-ic-ifsp/drivers/phantomjs/bin/phantomjs");
 		System.setProperty("phantomjs.binary.path", filePathToPhantom.getAbsolutePath());
 		driver = new PhantomJSDriver(); 
 		return driver;
