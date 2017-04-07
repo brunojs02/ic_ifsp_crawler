@@ -13,7 +13,7 @@ public class WebCrawlerLinks {
 	private final String DOMAIN;
 	private Logger log = Logger.getLogger("WebCrawlerLinks");
 	
-	public WebCrawlerLinks(final String domain){
+	public WebCrawlerLinks(String domain){
 		DOMAIN = domain;
 		linksToCrawler = new ArrayList<String>();
 		linksToCrawler.add(DOMAIN);
@@ -38,7 +38,7 @@ public class WebCrawlerLinks {
 		return linksCrawled;
 	}
 	
-	public synchronized List<String> getLinksCrawledOrdered(){
+	public List<String> getLinksCrawledOrdered(){
 		Collections.sort(linksCrawled, new Comparator<String>(){
 			@Override
 			public int compare(String link1, String link2) {
@@ -59,11 +59,11 @@ public class WebCrawlerLinks {
 		return linksCrawled.size();
 	}
 	
-	public Boolean contains(String link){
-		if(linksToCrawler.contains(link) || linksCrawled.contains(link)){
-			return Boolean.TRUE;
+	public synchronized Boolean isToAddLinkToCrawler(String link){
+		if(linksToCrawler.contains(link) || linksCrawled.contains(link) || link.contains("#")){
+			return Boolean.FALSE;
 		}
-		return Boolean.FALSE;
+		return Boolean.TRUE;
 	}
 	
 	public synchronized void addLinkToCrawler(String link){
@@ -71,7 +71,7 @@ public class WebCrawlerLinks {
 		log.info("Adicionado link na lista para crawlear: " + link);
 	}
 	
-	public synchronized void addLinkCrawled(String link){
+	public void addLinkCrawled(String link){
 		linksCrawled.add(link);
 		log.info("Adicionado link na lista de links crawleados: " + link);
 	}

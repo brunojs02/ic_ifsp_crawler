@@ -8,13 +8,16 @@ public class Page {
 	private String domain;
 	private String url;
 	private Document doc;
+	private Long timeToLoadPage;
+
 	private Calendar dateCreated;
 	private Calendar dateUpdated;
 	
-	public Page(String domain, String url, Document doc){
+	public Page(String domain, String url, Document doc, Long timeLoad){
 		this.domain = domain;
 		this.url = url;
 		this.doc = doc;
+		this.timeToLoadPage = timeLoad;
 		this.dateCreated = Calendar.getInstance();
 		this.dateUpdated = Calendar.getInstance();
 	}
@@ -58,12 +61,20 @@ public class Page {
 	public void setDateUpdated(Calendar dateUpdated) {
 		this.dateUpdated = dateUpdated;
 	}
+	
+	public Long getTimeToLoadPage() {
+		return timeToLoadPage;
+	}
+
+	public void setTimeToLoadPage(Long timeToLoadPage) {
+		this.timeToLoadPage = timeToLoadPage;
+	}
 
 	@Override
 	public String toString() {
 		return "Page [domain=" + domain + ", url=" + url + ", doc=" + doc
-				+ ", dateCreated=" + dateCreated + ", dateUpdated="
-				+ dateUpdated + "]";
+				+ ", timeToLoadPage=" + timeToLoadPage + ", dateCreated="
+				+ dateCreated + ", dateUpdated=" + dateUpdated + "]";
 	}
 	
 }

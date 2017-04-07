@@ -9,7 +9,7 @@ public class Teste {
 		try{
 			//String domain = args[0];
 			//Integer qtdThreads = Integer.parseInt(args[1]);
-			new WebCrawler("http://arq.ifsp.edu.br/portal/");
+			new WebCrawler("http://www.extra.com.br/");
 		}catch(Exception e){
 			log.info(e.toString());
 		}

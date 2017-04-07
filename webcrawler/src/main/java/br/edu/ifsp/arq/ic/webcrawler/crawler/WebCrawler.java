@@ -1,6 +1,7 @@
 package br.edu.ifsp.arq.ic.webcrawler.crawler;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,30 +31,34 @@ public class WebCrawler {
 	
 	private void start(){
 		String url = null;
-		while((url = webCrawlerLinks.getLinkToCrawler()) != null){
+		int limite = 4;
+		while((url = webCrawlerLinks.getLinkToCrawler()) != null && limite > 0){
 			log.info("Iniciando o crawling na URL: " + url);
 			log.info("Quantidade de links restantes: " + webCrawlerLinks.getQtdLinksToCrawler());
 			this.parse(url);
 			log.info("Finalizado o crawling da URL: " + url);
 			log.info("Quantidade de links crawleados: " + webCrawlerLinks.getQtdLinksCrawled());
+			limite--;
 		}
 	}
 	
 	private void parse(String url){
+		Long t1 = Calendar.getInstance().getTimeInMillis();
 		this.driver.get(url);
-		webCrawlerLinks.addLinkCrawled(url);
+		Long t2 = Calendar.getInstance().getTimeInMillis();
 		String html = this.driver.getPageSource();
 		Document doc = Jsoup.parse(html);
+		webCrawlerLinks.addLinkCrawled(url);
+		pages.add(new Page(webCrawlerLinks.getDomain(), url, doc, (t2-t1)));
 		Elements elementos = doc.select("a");
 		for(Element elemento:elementos){
 			String link = elemento.attr("abs:href");
 			if(link.startsWith(webCrawlerLinks.getDomain())){
-				if(Boolean.FALSE.equals(webCrawlerLinks.contains(link)) && Boolean.FALSE.equals(link.contains("#"))){
+				if(Boolean.TRUE.equals(webCrawlerLinks.isToAddLinkToCrawler(link))){
 					webCrawlerLinks.addLinkToCrawler(link);
 				}
 			}
 		}
-		pages.add(new Page(webCrawlerLinks.getDomain(), url, doc));
 	}
 	
 	public void closeBrowser(){
