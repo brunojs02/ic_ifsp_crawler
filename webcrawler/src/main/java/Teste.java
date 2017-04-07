@@ -1,14 +1,17 @@
+import java.util.logging.Logger;
+
 import br.edu.ifsp.arq.ic.webcrawler.crawler.WebCrawler;
 
 public class Teste {
-
+	private static Logger log = Logger.getLogger("Run");
+	
 	public static void main(String[] args) {
 		try{
 			//String domain = args[0];
 			//Integer qtdThreads = Integer.parseInt(args[1]);
-			new WebCrawler("");
+			new WebCrawler("http://arq.ifsp.edu.br/portal/");
 		}catch(Exception e){
-			System.out.println("Necessário informar o dominio de start e a quantidade de workers");
+			log.info(e.toString());
 		}
 	}
 	

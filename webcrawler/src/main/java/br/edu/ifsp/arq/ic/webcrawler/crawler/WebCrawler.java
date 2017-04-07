@@ -32,25 +32,27 @@ public class WebCrawler {
 		String url = null;
 		while((url = webCrawlerLinks.getLinkToCrawler()) != null){
 			log.info("Iniciando o crawling na URL: " + url);
+			log.info("Quantidade de links restantes: " + webCrawlerLinks.getQtdLinksToCrawler());
 			this.parse(url);
 			log.info("Finalizado o crawling da URL: " + url);
+			log.info("Quantidade de links crawleados: " + webCrawlerLinks.getQtdLinksCrawled());
 		}
 	}
 	
 	private void parse(String url){
 		this.driver.get(url);
+		webCrawlerLinks.addLinkCrawled(url);
 		String html = this.driver.getPageSource();
 		Document doc = Jsoup.parse(html);
 		Elements elementos = doc.select("a");
 		for(Element elemento:elementos){
 			String link = elemento.attr("abs:href");
 			if(link.startsWith(webCrawlerLinks.getDomain())){
-				if(Boolean.FALSE.equals(webCrawlerLinks.contains(url))){
+				if(Boolean.FALSE.equals(webCrawlerLinks.contains(link)) && Boolean.FALSE.equals(link.contains("#"))){
 					webCrawlerLinks.addLinkToCrawler(link);
 				}
 			}
 		}
-		webCrawlerLinks.addLinkCrawled(url);
 		pages.add(new Page(webCrawlerLinks.getDomain(), url, doc));
 	}
 	
