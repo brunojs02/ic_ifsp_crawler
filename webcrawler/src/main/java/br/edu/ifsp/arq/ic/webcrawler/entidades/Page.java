@@ -1,6 +1,6 @@
 package br.edu.ifsp.arq.ic.webcrawler.entidades;
 
-import java.sql.Timestamp;
+import java.util.Calendar;
 
 import org.jsoup.nodes.Document;
 
@@ -8,8 +8,16 @@ public class Page {
 	private String domain;
 	private String url;
 	private Document doc;
-	private Timestamp dateCreated;
-	private Timestamp dateUpdated;
+	private Calendar dateCreated;
+	private Calendar dateUpdated;
+	
+	public Page(String domain, String url, Document doc){
+		this.domain = domain;
+		this.url = url;
+		this.doc = doc;
+		this.dateCreated = Calendar.getInstance();
+		this.dateUpdated = Calendar.getInstance();
+	}
 	
 	public String getDomain() {
 		return domain;
@@ -35,19 +43,19 @@ public class Page {
 		this.doc = doc;
 	}
 	
-	public Timestamp getDateCreated() {
+	public Calendar getDateCreated() {
 		return dateCreated;
 	}
 	
-	public void setDateCreated(Timestamp dateCreated) {
+	public void setDateCreated(Calendar dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 	
-	public Timestamp getDateUpdated() {
+	public Calendar getDateUpdated() {
 		return dateUpdated;
 	}
 	
-	public void setDateUpdated(Timestamp dateUpdated) {
+	public void setDateUpdated(Calendar dateUpdated) {
 		this.dateUpdated = dateUpdated;
 	}
 

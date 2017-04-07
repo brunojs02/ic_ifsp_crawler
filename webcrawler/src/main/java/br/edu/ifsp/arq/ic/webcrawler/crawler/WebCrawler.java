@@ -1,9 +1,8 @@
 package br.edu.ifsp.arq.ic.webcrawler.crawler;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.logging.Logger;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,42 +14,48 @@ import br.edu.ifsp.arq.ic.webcrawler.browsers.BrowserPhantomJS;
 import br.edu.ifsp.arq.ic.webcrawler.entidades.Page;
 
 public class WebCrawler {
-	public final static String DOMAIN = "http://www.americanas.com.br/";
-	private Set<String> links;
 	private List<Page> pages;
 	private WebDriver driver;
+	private WebCrawlerLinks webCrawlerLinks;
+	private Logger log = Logger.getLogger("WebCrawler");
 	
-	public WebCrawler(){
-		links = new HashSet<String>();
+	public WebCrawler(String domain){
+		webCrawlerLinks = new WebCrawlerLinks(domain);
 		pages = new ArrayList<Page>();
 		driver = new BrowserPhantomJS().getDriver();
-		this.parse(DOMAIN);
+		this.start();
+		log.info(String.valueOf(webCrawlerLinks.getLinksCrawled().size()) + " links");
+		this.closeBrowser();
+	}
+	
+	private void start(){
+		String url = null;
+		while((url = webCrawlerLinks.getLinkToCrawler()) != null){
+			log.info("Iniciando o crawling na URL: " + url);
+			this.parse(url);
+			log.info("Finalizado o crawling da URL: " + url);
+		}
 	}
 	
 	private void parse(String url){
-		this.links.add(url);
-		//browser abre a página
 		this.driver.get(url);
 		String html = this.driver.getPageSource();
-		//jsoup faz o parse da String que representa o html interpretado pelo browser
 		Document doc = Jsoup.parse(html);
 		Elements elementos = doc.select("a");
-		//é percorrido todos links existentes no site
 		for(Element elemento:elementos){
 			String link = elemento.attr("abs:href");
-			if(link.startsWith(DOMAIN)){
-				links.add(link);
+			if(link.startsWith(webCrawlerLinks.getDomain())){
+				if(Boolean.FALSE.equals(webCrawlerLinks.contains(url))){
+					webCrawlerLinks.addLinkToCrawler(link);
+				}
 			}
 		}
-		Page page = new Page();
-		page.setUrl(url);
-		page.setDomain(DOMAIN);
-		page.setDoc(doc);
-		pages.add(page);
+		webCrawlerLinks.addLinkCrawled(url);
+		pages.add(new Page(webCrawlerLinks.getDomain(), url, doc));
 	}
 	
 	public void closeBrowser(){
-		driver.close();
+		log.info("Browser fechado");
 		driver.quit();
 	}
 }

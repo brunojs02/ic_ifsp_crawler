@@ -9,7 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class CrawlerUtils {
+public class CrawlerUtil {
 	
 	public static Document changeAllImagesFromDocument(Document doc){
 		Elements elementos = doc.select("img");
