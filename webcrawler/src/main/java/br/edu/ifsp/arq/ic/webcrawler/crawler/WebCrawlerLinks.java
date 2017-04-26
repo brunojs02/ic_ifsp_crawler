@@ -30,11 +30,11 @@ public class WebCrawlerLinks {
 		}
 	}
 	
-	public synchronized List<String> getLinksToCrawler(){
+	public List<String> getLinksToCrawler(){
 		return linksToCrawler;
 	}
 	
-	public synchronized List<String> getLinksCrawled(){
+	public List<String> getLinksCrawled(){
 		return linksCrawled;
 	}
 	

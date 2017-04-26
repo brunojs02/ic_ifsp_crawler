@@ -31,14 +31,12 @@ public class WebCrawler {
 	
 	private void start(){
 		String url = null;
-		int limite = 4;
-		while((url = webCrawlerLinks.getLinkToCrawler()) != null && limite > 0){
+		while((url = webCrawlerLinks.getLinkToCrawler()) != null){
 			log.info("Iniciando o crawling na URL: " + url);
 			log.info("Quantidade de links restantes: " + webCrawlerLinks.getQtdLinksToCrawler());
 			this.parse(url);
 			log.info("Finalizado o crawling da URL: " + url);
 			log.info("Quantidade de links crawleados: " + webCrawlerLinks.getQtdLinksCrawled());
-			limite--;
 		}
 	}
 	

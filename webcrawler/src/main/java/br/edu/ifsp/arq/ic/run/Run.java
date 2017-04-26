@@ -1,8 +1,9 @@
+package br.edu.ifsp.arq.ic.run;
 import java.util.logging.Logger;
 
 import br.edu.ifsp.arq.ic.webcrawler.crawler.WebCrawler;
 
-public class Teste {
+public class Run {
 	private static Logger log = Logger.getLogger("Run");
 	
 	public static void main(String[] args) {
