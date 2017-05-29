@@ -1,4 +1,9 @@
-/.metadata/
-/RemoteSystemsTempFiles/
-/drivers/
-/.recommenders/
+.metadata/
+RemoteSystemsTempFiles/
+drivers/
+.recommenders/
+target/
+.classpath
+.project
+.settings/
+*.log
