@@ -1,5 +1,6 @@
 package org.brunojs02.crawler.webdriver;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -16,8 +17,12 @@ public class WebDriverCustom {
 	public WebDriverCustom(){
 		DesiredCapabilities caps = new DesiredCapabilities();
 		caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, System.getProperty("user.dir") + "/../drivers/phantomjs/bin/phantomjs");
+		ArrayList<String> cliArqs = new ArrayList<String>();
+		cliArqs.add("--load-images=false");
+		cliArqs.add("--disk-cache=false");
+		cliArqs.add("--max-disk-cache-size=10000");
+		caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cliArqs);
 		driver = new PhantomJSDriver(caps);
-		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().pageLoadTimeout(25, TimeUnit.SECONDS);
 		driver.manage().window().setSize(new Dimension(1900, 1200));
 	}
@@ -27,9 +32,11 @@ public class WebDriverCustom {
 	}
 	
 	public void cleanCookies(){
-		log.info(driver.manage().getCookies().toString());
+		log.info("Cache before clean size: " + driver.manage().getCookies().size() + " content: " 
+				+ driver.manage().getCookies().toString());
 		driver.manage().deleteAllCookies();
-		log.info(driver.manage().getCookies().toString());
+		log.info("Cache after clean size: " + driver.manage().getCookies().size() + " content: " 
+				+ driver.manage().getCookies().toString());
 	}
 	
 	public void destroyDriver(){
