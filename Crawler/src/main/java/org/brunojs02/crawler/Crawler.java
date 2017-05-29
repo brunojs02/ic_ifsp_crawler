@@ -40,6 +40,7 @@ public class Crawler {
 	private void init(Link link) {
 		log.info("Start Crawler the link: " + link.getLink());
 		try{
+			driver.cleanCookies();
 			driver.getDriver().get(link.getLink());
 		}catch (Exception e) {
 			e.printStackTrace();

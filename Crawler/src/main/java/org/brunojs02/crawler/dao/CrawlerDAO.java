@@ -42,8 +42,8 @@ public class CrawlerDAO {
 	
 	private void savePage(Page page) throws SQLException{
 		log.info("Starting save a Page on BD: " + page.getDocument().title());
-		String sql = "insert into page (id_link_page, document, qtd_imgs, qtd_links, qtd_css_files, qtd_js_files, "
-				+ "qtd_divs, qtd_ul, qtd_li, qtd_input) " + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into page (id_link_page, document, qtd_tag_img, qtd_tag_a, qtd_tag_link, qtd_tag_script, "
+				+ "qtd_tag_div, qtd_tag_ul, qtd_tag_li, qtd_tag_input) " + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = con.prepareStatement(sql);
 		stmt.setInt(1, page.getLink().getId());
 		stmt.setString(2, page.getDocument().toString());
