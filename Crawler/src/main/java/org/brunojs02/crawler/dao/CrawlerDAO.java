@@ -25,6 +25,7 @@ public class CrawlerDAO {
 			con.setAutoCommit(false);
 			saveLink(page.getLink());
 			savePage(page);
+			savePageLink(page);
 			con.commit();
 		} catch (SQLException e) {
 			try {
@@ -42,19 +43,20 @@ public class CrawlerDAO {
 	
 	private void savePage(Page page) throws SQLException{
 		log.info("Starting save a Page on BD: " + page.getDocument().title());
-		String sql = "insert into page (id_link_page, document, qtd_tag_img, qtd_tag_a, qtd_tag_link, qtd_tag_script, "
-				+ "qtd_tag_div, qtd_tag_ul, qtd_tag_li, qtd_tag_input) " + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into page (id_link_page, document, page_title, qtd_tag_img, qtd_tag_a, qtd_tag_link, qtd_tag_script, "
+				+ "qtd_tag_div, qtd_tag_ul, qtd_tag_li, qtd_tag_input) " + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = con.prepareStatement(sql);
 		stmt.setInt(1, page.getLink().getId());
 		stmt.setString(2, page.getDocument().toString());
-		stmt.setInt(3, page.getQtdImgs());
-		stmt.setInt(4, page.getQtdLinks());
-		stmt.setInt(5, page.getQtdCssFiles());
-		stmt.setInt(6, page.getQtdJsFiles());
-		stmt.setInt(7, page.getQtdDivs());
-		stmt.setInt(8, page.getQtdUl());
-		stmt.setInt(9, page.getQtdLi());
-		stmt.setInt(10, page.getQtdInputs());
+		stmt.setString(3, page.getDocument().title());
+		stmt.setInt(4, page.getQtdTagImg());
+		stmt.setInt(5, page.getLinksOnThisPage().size());
+		stmt.setInt(6, page.getQtdTagLink());
+		stmt.setInt(7, page.getQtdTagScript());
+		stmt.setInt(8, page.getQtdTagDiv());
+		stmt.setInt(9, page.getQtdTaUl());
+		stmt.setInt(10, page.getQtdTagLi());
+		stmt.setInt(11, page.getQtdTagInput());
 		stmt.executeUpdate();
 		ResultSet rs = stmt.getGeneratedKeys();
 		if(rs.next()){
@@ -62,6 +64,20 @@ public class CrawlerDAO {
         }
 		stmt.close();
 		log.info("Page saved on BD: " + page.getDocument().title());
+	}
+	
+	private void savePageLink(Page page) throws SQLException{
+		log.info("Starting save a list of links from page on BD");
+		String sql = "insert into page_link (link, depth, page_id) values (?, ?, ?)";
+		for(Link link:page.getLinksOnThisPage()){
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, link.getLink());
+			stmt.setInt(2, link.getDepth());
+			stmt.setInt(3, page.getId());
+			stmt.executeUpdate();
+			stmt.close();
+		}
+		log.info("list of links from page saved on BD");
 	}
 	
 	private void saveLink(Link link) throws SQLException{

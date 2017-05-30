@@ -1,21 +1,24 @@
 package org.brunojs02.crawler.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jsoup.nodes.Document;
 
 public class Page {
 	private Integer id;
 	private Link link;
 	private Document document;
-	private Integer qtdImgs;
-	private Integer qtdLinks;
-	private Integer qtdCssFiles;
-	private Integer qtdJsFiles;
-	private Integer qtdDivs;
-	private Integer qtdUl;
-	private Integer qtdLi;
-	private Integer qtdInputs;
-
-
+	private Integer qtdTagImg;
+	private Integer qtdTagLink;
+	private Integer qtdTagScript;
+	private Integer qtdTagDiv;
+	private Integer qtdTaUl;
+	private Integer qtdTagLi;
+	private Integer qtdTagInput;
+	private List<Link> linksOnThisPage;
+	
+	
 	/**
 	 * @param link
 	 * @param document
@@ -23,7 +26,9 @@ public class Page {
 	public Page(Link link, Document document) {
 		this.link = link;
 		this.document = document;
+		this.linksOnThisPage = new ArrayList<Link>();
 	}
+
 
 	/**
 	 * @return the id
@@ -32,12 +37,14 @@ public class Page {
 		return id;
 	}
 
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 
 	/**
 	 * @return the link
@@ -46,12 +53,14 @@ public class Page {
 		return link;
 	}
 
+
 	/**
 	 * @param link the link to set
 	 */
 	public void setLink(Link link) {
 		this.link = link;
 	}
+
 
 	/**
 	 * @return the document
@@ -60,131 +69,140 @@ public class Page {
 		return document;
 	}
 
+
 	/**
 	 * @param document the document to set
 	 */
 	public void setDocument(Document document) {
 		this.document = document;
 	}
-	
-	/**
-	 * @return the qtdImgs
-	 */
-	public Integer getQtdImgs() {
-		return qtdImgs;
-	}
+
 
 	/**
-	 * @param qtdImgs the qtdImgs to set
+	 * @return the qtdTagImg
 	 */
-	public void setQtdImgs(Integer qtdImgs) {
-		this.qtdImgs = qtdImgs;
+	public Integer getQtdTagImg() {
+		return qtdTagImg;
 	}
+
 
 	/**
-	 * @return the qtdLinks
+	 * @param qtdTagImg the qtdTagImg to set
 	 */
-	public Integer getQtdLinks() {
-		return qtdLinks;
+	public void setQtdTagImg(Integer qtdTagImg) {
+		this.qtdTagImg = qtdTagImg;
 	}
+
 
 	/**
-	 * @param qtdLinks the qtdLinks to set
+	 * @return the qtdTagLink
 	 */
-	public void setQtdLinks(Integer qtdLinks) {
-		this.qtdLinks = qtdLinks;
+	public Integer getQtdTagLink() {
+		return qtdTagLink;
 	}
+
 
 	/**
-	 * @return the qtdCssFiles
+	 * @param qtdTagLink the qtdTagLink to set
 	 */
-	public Integer getQtdCssFiles() {
-		return qtdCssFiles;
+	public void setQtdTagLink(Integer qtdTagLink) {
+		this.qtdTagLink = qtdTagLink;
 	}
+
 
 	/**
-	 * @param qtdCssFiles the qtdCssFiles to set
+	 * @return the qtdTagScript
 	 */
-	public void setQtdCssFiles(Integer qtdCssFiles) {
-		this.qtdCssFiles = qtdCssFiles;
+	public Integer getQtdTagScript() {
+		return qtdTagScript;
 	}
+
 
 	/**
-	 * @return the qtdJsFiles
+	 * @param qtdTagScript the qtdTagScript to set
 	 */
-	public Integer getQtdJsFiles() {
-		return qtdJsFiles;
+	public void setQtdTagScript(Integer qtdTagScript) {
+		this.qtdTagScript = qtdTagScript;
 	}
+
 
 	/**
-	 * @param qtdJsFiles the qtdJsFiles to set
+	 * @return the qtdTagDiv
 	 */
-	public void setQtdJsFiles(Integer qtdJsFiles) {
-		this.qtdJsFiles = qtdJsFiles;
+	public Integer getQtdTagDiv() {
+		return qtdTagDiv;
 	}
+
 
 	/**
-	 * @return the qtdDivs
+	 * @param qtdTagDiv the qtdTagDiv to set
 	 */
-	public Integer getQtdDivs() {
-		return qtdDivs;
+	public void setQtdTagDiv(Integer qtdTagDiv) {
+		this.qtdTagDiv = qtdTagDiv;
 	}
+
 
 	/**
-	 * @param qtdDivs the qtdDivs to set
+	 * @return the qtdTaUl
 	 */
-	public void setQtdDivs(Integer qtdDivs) {
-		this.qtdDivs = qtdDivs;
+	public Integer getQtdTaUl() {
+		return qtdTaUl;
 	}
+
 
 	/**
-	 * @return the qtdUl
+	 * @param qtdTaUl the qtdTaUl to set
 	 */
-	public Integer getQtdUl() {
-		return qtdUl;
+	public void setQtdTaUl(Integer qtdTaUl) {
+		this.qtdTaUl = qtdTaUl;
 	}
+
 
 	/**
-	 * @param qtdUl the qtdUl to set
+	 * @return the qtdTagLi
 	 */
-	public void setQtdUl(Integer qtdUl) {
-		this.qtdUl = qtdUl;
+	public Integer getQtdTagLi() {
+		return qtdTagLi;
 	}
+
 
 	/**
-	 * @return the qtdLi
+	 * @param qtdTagLi the qtdTagLi to set
 	 */
-	public Integer getQtdLi() {
-		return qtdLi;
+	public void setQtdTagLi(Integer qtdTagLi) {
+		this.qtdTagLi = qtdTagLi;
 	}
+
 
 	/**
-	 * @param qtdLi the qtdLi to set
+	 * @return the qtdTagInput
 	 */
-	public void setQtdLi(Integer qtdLi) {
-		this.qtdLi = qtdLi;
+	public Integer getQtdTagInput() {
+		return qtdTagInput;
 	}
+
 
 	/**
-	 * @return the qtdInputs
+	 * @param qtdTagInput the qtdTagInput to set
 	 */
-	public Integer getQtdInputs() {
-		return qtdInputs;
+	public void setQtdTagInput(Integer qtdTagInput) {
+		this.qtdTagInput = qtdTagInput;
 	}
+
 
 	/**
-	 * @param qtdInputs the qtdInputs to set
+	 * @return the linksOnThisPage
 	 */
-	public void setQtdInputs(Integer qtdInputs) {
-		this.qtdInputs = qtdInputs;
+	public List<Link> getLinksOnThisPage() {
+		return linksOnThisPage;
 	}
 
-	
-	@Override
-	public String toString() {
-		return "Page [id=" + id + ", link=" + link + ", document=" + document + ", qtdImgs=" + qtdImgs + ", qtdLinks="
-				+ qtdLinks + ", qtdCssFiles=" + qtdCssFiles + ", qtdJsFiles=" + qtdJsFiles + ", qtdDivs=" + qtdDivs
-				+ ", qtdUl=" + qtdUl + ", qtdLi=" + qtdLi + ", qtdInputs=" + qtdInputs + "]";
+
+	/**
+	 * @param linksOnThisPage the linksOnThisPage to set
+	 */
+	public void setLinksOnThisPage(List<Link> linksOnThisPage) {
+		this.linksOnThisPage = linksOnThisPage;
 	}
 	
 	

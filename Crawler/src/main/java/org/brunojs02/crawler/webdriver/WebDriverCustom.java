@@ -27,7 +27,7 @@ public class WebDriverCustom {
 		}else{
 			driver = Phantom();
 		}
-		driver.manage().timeouts().pageLoadTimeout(25, TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		driver.manage().window().setSize(new Dimension(1900, 1200));
 	}
 	
@@ -61,15 +61,11 @@ public class WebDriverCustom {
 	private WebDriver Chrome(){
 		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/../drivers/chrome/chromedriver");
 		DesiredCapabilities caps = DesiredCapabilities.chrome();
-		HashMap<String, Object> images = new HashMap<String, Object>(); 
-		images.put("images", 2);
-		HashMap<String, Object> prefs = new HashMap<String, Object>(); 
-		prefs.put("profile.default_content_setting_values", images);
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--test-type --no-sandbox");
-		options.addArguments("--enable-strict-powerful-feature-restrictions");
-		options.setExperimentalOption("prefs", prefs);
+		HashMap<String, Object> preferences = new HashMap<String, Object>(); 
+		preferences.put("profile.managed_default_content_settings.images", 2);
+		ChromeOptions options = new ChromeOptions(); 
+		options.setExperimentalOption("prefs", preferences);
 		caps.setCapability(ChromeOptions.CAPABILITY, options);
-		return new ChromeDriver();
+		return new ChromeDriver(caps);
 	}
 }

@@ -14,22 +14,11 @@ public class Frontier {
 	private List<Link> linksCrawled;
 	private final String domain;
 	private Logger log = Logger.getLogger("FrontierLog");
-	private static Frontier frontier;
 
-	private Frontier(String domain) {
+	public Frontier(String domain) {
 		this.domain = domain;
 		links = new ConcurrentLinkedQueue<Link>();
 		linksCrawled = new ArrayList<Link>();
-	}
-	
-	/**
-	 * @return the instance of this class
-	 */
-	public static Frontier getInstance(String domain) {
-		if (frontier != null) {
-			return frontier;
-		}
-		return new Frontier(domain);
 	}
 
 	/**
@@ -57,6 +46,20 @@ public class Frontier {
 	 */
 	public Link getLinkToCrawl(){
 		return links.poll();
+	}
+	
+	/**
+	 * @return Quantidade de links na fila
+	 */
+	public Integer getQtdLinksToCrawl(){
+		return links.size();
+	}
+	
+	/**
+	 * @return Quantidade de links na fila
+	 */
+	public Integer getQtdLinksToCrawled(){
+		return linksCrawled.size();
 	}
 	
 	/**
