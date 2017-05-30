@@ -25,7 +25,7 @@ public class Crawler {
 		Link link = new Link(domain, Integer.valueOf(0), Boolean.FALSE);
 		frontier.addLink(link);
 		crawlerDAO = new CrawlerDAO();
-		driver = new WebDriverCustom();
+		driver = new WebDriverCustom(WebDriverCustom.CHROME_DRIVER);
 	}
 	
 	public void start() {
