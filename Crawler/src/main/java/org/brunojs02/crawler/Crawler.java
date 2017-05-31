@@ -12,6 +12,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.openqa.selenium.WebDriver;
 
 public class Crawler {
 	private WebDriverCustom driver;
@@ -49,21 +50,24 @@ public class Crawler {
 			return;
 		}
 		frontier.addLinkCrawled(link);
-		Document doc = Jsoup.parse(driver.getDriver().getPageSource());
-		parse(doc, link);
+		parse(driver.getDriver(), link);
 		log.info("Finished Crawler the link: " + link.getLink());
 		log.info("Amount of links to crawl: " + frontier.getQtdLinksToCrawl());
 		log.info("Amount of links crawled: " + frontier.getQtdLinksToCrawled());
 	}
 	
-	private void parse(Document doc, Link link){
-		Elements elements = doc.select("a");
+	private void parse(WebDriver driver, Link link){
+		Document doc = Jsoup.parse(driver.getPageSource());
+		Elements elements = doc.select("a[href]");
 		List<Link> links = new ArrayList<Link>();
 		for(Element element:elements){
-			Link newLink = new Link(element.attr("abs:href"), (link.getDepth() + 1), Boolean.FALSE);
-			frontier.addLink(newLink);
-			links.add(newLink);
+			if (!(element.attr("abs:href").trim().isEmpty())) {
+				Link newLink = new Link(element.attr("abs:href"), (link.getDepth() + 1), Boolean.FALSE);
+				frontier.addLink(newLink);
+				links.add(newLink);
+			}
 		}
+		link.setCrawled(Boolean.TRUE);
 		Page page = new Page(link, doc);
 		page.setQtdTagLink(doc.select("link").size());
 		page.setQtdTagDiv(doc.select("div").size());

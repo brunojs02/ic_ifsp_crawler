@@ -23,9 +23,11 @@ public class CrawlerDAO {
 		con = fac.getConnection();
 		try {
 			con.setAutoCommit(false);
-			saveLink(page.getLink());
+			if (findLink(page.getLink()).getId() == null) {
+				saveLink(page.getLink());
+			}
 			savePage(page);
-			savePageLink(page);
+			saveOrUpdatePageLink(page);
 			con.commit();
 		} catch (SQLException e) {
 			try {
@@ -66,26 +68,42 @@ public class CrawlerDAO {
 		log.info("Page saved on BD: " + page.getDocument().title());
 	}
 	
-	private void savePageLink(Page page) throws SQLException{
+	private void saveOrUpdatePageLink(Page page) throws SQLException{
 		log.info("Starting save a list of links from page on BD");
-		String sql = "insert into page_link (link, depth, page_id) values (?, ?, ?)";
+		String sql = "insert into page_link (link_id, page_id) values (?, ?)";
 		for(Link link:page.getLinksOnThisPage()){
+			if (findLink(link).getId() == null) {
+				saveLink(link);
+			}
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setString(1, link.getLink());
-			stmt.setInt(2, link.getDepth());
-			stmt.setInt(3, page.getId());
+			stmt.setInt(1, link.getId());
+			stmt.setInt(2, page.getId());
 			stmt.executeUpdate();
 			stmt.close();
 		}
 		log.info("list of links from page saved on BD");
 	}
 	
+	private Link findLink(Link link) throws SQLException{
+		log.info("Starting searching a link on BD: " + link.getLink());
+		String sql = "select id_link from link where link = ?";
+		PreparedStatement stmt = con.prepareStatement(sql);
+		stmt.setString(1, link.getLink());
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			link.setId(rs.getInt("id_link"));
+			log.info("Link finded: " + link.getId());
+		}
+		return link;
+	}
+	
 	private void saveLink(Link link) throws SQLException{
 		log.info("Starting save a Link on BD: " + link.getLink());
-		String sql = "insert into link (link, depth) values(?, ?)";
+		String sql = "insert into link (link, depth, crawled) values(?, ?, ?)";
 		PreparedStatement stmt = con.prepareStatement(sql);
 		stmt.setString(1, link.getLink());
 		stmt.setInt(2, link.getDepth());
+		stmt.setBoolean(3, link.getCrawled());
 		stmt.executeUpdate();
 		ResultSet rs = stmt.getGeneratedKeys();
 		if(rs.next()){

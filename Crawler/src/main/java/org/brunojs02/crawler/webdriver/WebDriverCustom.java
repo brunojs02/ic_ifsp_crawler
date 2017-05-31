@@ -52,7 +52,6 @@ public class WebDriverCustom {
 		caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, System.getProperty("user.dir") + "/../drivers/phantomjs/bin/phantomjs");
 		ArrayList<String> cliArqs = new ArrayList<String>();
 		cliArqs.add("--load-images=false");
-		cliArqs.add("--disk-cache=false");
 		cliArqs.add("--max-disk-cache-size=10000");
 		caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cliArqs);
 		return new PhantomJSDriver(caps);

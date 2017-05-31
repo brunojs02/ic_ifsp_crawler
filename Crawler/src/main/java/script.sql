@@ -5,6 +5,7 @@ create table link(
 	id_link Integer not null auto_increment,
 	link text not null,
 	depth Integer not null,
+	crawled tinyint(1) not null,
 	primary key(id_link)
 );
 create table page(
@@ -24,10 +25,10 @@ create table page(
 	foreign key(id_link_page) references link(id_link)
 );
 create table page_link(
-	id_link Integer not null auto_increment,
-	link text not null,
-	depth Integer not null,
+	id_page_link Integer not null auto_increment,
+	link_id Integer not null,
 	page_id Integer not null,
-	primary key(id_link),
+	primary key(id_page_link),
+	foreign key(link_id) references link(id_link),
 	foreign key(page_id) references page(id_page)
 );
