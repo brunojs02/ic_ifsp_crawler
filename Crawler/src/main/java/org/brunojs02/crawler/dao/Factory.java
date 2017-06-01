@@ -16,6 +16,7 @@ public class Factory {
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(server + database, username, password);
+			con.setAutoCommit(false);
 			return con;
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();

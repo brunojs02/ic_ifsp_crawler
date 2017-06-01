@@ -36,7 +36,6 @@ public class Crawler {
 		while ((link = frontier.getLinkToCrawl()) != null) {
 			this.init(link);
 		}
-		crawlerDAO.closeConnection();
 		driver.destroyDriver();
 	}
 	
