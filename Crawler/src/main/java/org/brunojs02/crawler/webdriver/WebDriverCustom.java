@@ -3,14 +3,18 @@ package org.brunojs02.crawler.webdriver;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class WebDriverCustom {
@@ -54,6 +58,9 @@ public class WebDriverCustom {
 		cliArqs.add("--load-images=false");
 		cliArqs.add("--max-disk-cache-size=10000");
 		caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cliArqs);
+		LoggingPreferences logPrefs = new LoggingPreferences();
+        logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
+        caps.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
 		return new PhantomJSDriver(caps);
 	}
 	
@@ -65,6 +72,9 @@ public class WebDriverCustom {
 		ChromeOptions options = new ChromeOptions(); 
 		options.setExperimentalOption("prefs", preferences);
 		caps.setCapability(ChromeOptions.CAPABILITY, options);
+		LoggingPreferences logPrefs = new LoggingPreferences();
+        logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
+        caps.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
 		return new ChromeDriver(caps);
 	}
 }

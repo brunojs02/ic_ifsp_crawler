@@ -7,7 +7,7 @@ public class Run {
 	
 	public static void main(String[] args) {
 		Crawler crawler = new Crawler("http://www.extra.com.br/");
-		crawler.start();
+		crawler.start(); 
 	}
 
 }

@@ -31,6 +31,11 @@ public class Frontier {
 					return Boolean.FALSE;
 				}
 			}
+			for (Link linkQueue:links) {
+				if (linkQueue.getLink().equals(link.getLink())) {
+					return Boolean.FALSE;
+				}
+			}
 			if (Boolean.TRUE.equals(links.offer(link))) {
 				log.info("New Link to Frontier: " + link.getLink() + " Depth from the Link: " + link.getDepth());
 				return Boolean.TRUE;

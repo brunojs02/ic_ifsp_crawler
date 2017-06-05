@@ -4,17 +4,15 @@ public class Link {
 	private Integer id;
 	private String link;
 	private Integer depth;
-	private Boolean crawled;
 	
 	/**
 	 * @param link
 	 * @param depth
 	 * @param crawled
 	 */
-	public Link(String link, Integer depth, Boolean crawled) {
+	public Link(String link, Integer depth) {
 		this.link = link;
 		this.depth = depth;
-		this.crawled = crawled;
 	}
 	
 	
@@ -61,26 +59,12 @@ public class Link {
 	public void setDepth(Integer depth) {
 		this.depth = depth;
 	}
-	
-
-	/**
-	 * @return the crawled
-	 */
-	public Boolean getCrawled() {
-		return crawled;
-	}
-
-
-	/**
-	 * @param crawled the crawled to set
-	 */
-	public void setCrawled(Boolean crawled) {
-		this.crawled = crawled;
-	}
 
 
 	@Override
 	public String toString() {
-		return "Link [link=" + link + ", depth=" + depth + ", visited=" + crawled + "]";
+		return "Link [id=" + id + ", link=" + link + ", depth=" + depth + "]";
 	}
+
+	
 }

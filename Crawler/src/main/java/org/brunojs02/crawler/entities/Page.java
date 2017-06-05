@@ -1,7 +1,9 @@
 package org.brunojs02.crawler.entities;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.jsoup.nodes.Document;
 
@@ -16,7 +18,8 @@ public class Page {
 	private Integer qtdTaUl;
 	private Integer qtdTagLi;
 	private Integer qtdTagInput;
-	private List<Link> linksOnThisPage;
+	private Set<Link> linksOnThisPage;
+	private List<Resource> resources;
 	
 	
 	/**
@@ -26,7 +29,8 @@ public class Page {
 	public Page(Link link, Document document) {
 		this.link = link;
 		this.document = document;
-		this.linksOnThisPage = new ArrayList<Link>();
+		this.linksOnThisPage = new HashSet<Link>();
+		this.resources = new ArrayList<Resource>();
 	}
 
 
@@ -193,7 +197,7 @@ public class Page {
 	/**
 	 * @return the linksOnThisPage
 	 */
-	public List<Link> getLinksOnThisPage() {
+	public Set<Link> getLinksOnThisPage() {
 		return linksOnThisPage;
 	}
 
@@ -201,8 +205,56 @@ public class Page {
 	/**
 	 * @param linksOnThisPage the linksOnThisPage to set
 	 */
-	public void setLinksOnThisPage(List<Link> linksOnThisPage) {
+	public void setLinksOnThisPage(Set<Link> linksOnThisPage) {
 		this.linksOnThisPage = linksOnThisPage;
+	}
+
+
+	/**
+	 * @return the resources
+	 */
+	public List<Resource> getResources() {
+		return resources;
+	}
+
+
+	/**
+	 * @param resources the resources to set
+	 */
+	public void setResources(List<Resource> resources) {
+		this.resources = resources;
+	}
+
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Page [id=");
+		builder.append(id);
+		builder.append(", link=");
+		builder.append(link);
+		builder.append(", document=");
+		builder.append(document);
+		builder.append(", qtdTagImg=");
+		builder.append(qtdTagImg);
+		builder.append(", qtdTagLink=");
+		builder.append(qtdTagLink);
+		builder.append(", qtdTagScript=");
+		builder.append(qtdTagScript);
+		builder.append(", qtdTagDiv=");
+		builder.append(qtdTagDiv);
+		builder.append(", qtdTaUl=");
+		builder.append(qtdTaUl);
+		builder.append(", qtdTagLi=");
+		builder.append(qtdTagLi);
+		builder.append(", qtdTagInput=");
+		builder.append(qtdTagInput);
+		builder.append(", linksOnThisPage=");
+		builder.append(linksOnThisPage);
+		builder.append(", resources=");
+		builder.append(resources);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 	

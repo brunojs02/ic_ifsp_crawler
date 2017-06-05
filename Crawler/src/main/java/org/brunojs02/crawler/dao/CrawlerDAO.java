@@ -106,11 +106,10 @@ public class CrawlerDAO {
 	
 	private void saveLink(Link link) throws SQLException{
 		log.info("Starting save a Link on BD: " + link.getLink());
-		String sql = "insert into link (link, depth, crawled) values(?, ?, ?)";
+		String sql = "insert into link (link, depth) values(?, ?)";
 		PreparedStatement stmt = con.prepareStatement(sql);
 		stmt.setString(1, link.getLink());
 		stmt.setInt(2, link.getDepth());
-		stmt.setBoolean(3, link.getCrawled());
 		stmt.executeUpdate();
 		ResultSet rs = stmt.getGeneratedKeys();
 		if(rs.next()){

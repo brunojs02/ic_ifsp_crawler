@@ -32,3 +32,12 @@ create table page_link(
 	foreign key(link_id) references link(id_link),
 	foreign key(page_id) references page(id_page)
 );
+create table resource(
+	id_resource Integer not null auto_increment,
+	resource_page_id Integer not null,
+	url text not null,
+	data_length Integer not null,
+	time_to_load double not null,
+	primary key(id_resource),
+	foreign key(resource_page_id) references page(id_page)
+);
