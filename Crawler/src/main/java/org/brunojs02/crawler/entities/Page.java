@@ -18,6 +18,7 @@ public class Page {
 	private Integer qtdTaUl;
 	private Integer qtdTagLi;
 	private Integer qtdTagInput;
+	private Long pageLoadTime;
 	private Set<Link> linksOnThisPage;
 	private List<Resource> resources;
 	
@@ -199,6 +200,22 @@ public class Page {
 	 */
 	public Set<Link> getLinksOnThisPage() {
 		return linksOnThisPage;
+	}
+
+
+	/**
+	 * @return the pageLoadTime
+	 */
+	public Long getPageLoadTime() {
+		return pageLoadTime;
+	}
+
+
+	/**
+	 * @param pageLoadTime the pageLoadTime to set
+	 */
+	public void setPageLoadTime(Long pageLoadTime) {
+		this.pageLoadTime = pageLoadTime;
 	}
 
 

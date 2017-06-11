@@ -13,6 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class Crawler {
@@ -59,7 +60,7 @@ public class Crawler {
 	private void parse(WebDriver driver, Link link){
 		Document doc = Jsoup.parse(driver.getPageSource());
 		Page page = generatePage(link, doc);
-		CrawlerUtil.generatePerformanceStatistic(driver.manage().logs().get("performance"), page);
+		CrawlerUtil.generatePerformanceStatistic(driver, page);
 		Elements elements = doc.select("a[href]");
 		Set<Link> links = new HashSet<Link>();
 		for(Element element:elements){
@@ -70,7 +71,7 @@ public class Crawler {
 			}
 		}
 		page.setLinksOnThisPage(links);
-		crawlerDAO.save(page);
+		//crawlerDAO.save(page);
 	}
 	
 	private Page generatePage(Link link, Document doc){
