@@ -7,7 +7,15 @@ public class Run {
 	
 	public static void main(String[] args) {
 		Crawler crawler = new Crawler("http://www.extra.com.br/");
-		crawler.start(); 
+		crawler.start();
+		crawler = new Crawler("http://www.pontofrio.com.br/");
+		crawler.start();
+		crawler = new Crawler("http://www.netshoes.com.br/");
+		crawler.start();
+		crawler = new Crawler("http://www.casasbahia.com.br/");
+		crawler.start();
+		crawler = new Crawler("http://www.americanas.com.br/");
+		crawler.start();
 	}
 
 }

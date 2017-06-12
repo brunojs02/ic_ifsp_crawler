@@ -5,7 +5,6 @@ create table link(
 	id_link Integer not null auto_increment,
 	link text not null,
 	depth Integer not null,
-	crawled tinyint(1) not null,
 	primary key(id_link)
 );
 create table page(
@@ -34,10 +33,12 @@ create table page_link(
 );
 create table resource(
 	id_resource Integer not null auto_increment,
+	request_id varchar(20) not null,
 	resource_page_id Integer not null,
 	url text not null,
-	data_length Integer not null,
-	time_to_load double not null,
+	data_length varchar(30) not null,
+	type_resource varchar(15) not null,
+	time_to_load double null,
 	primary key(id_resource),
 	foreign key(resource_page_id) references page(id_page)
 );

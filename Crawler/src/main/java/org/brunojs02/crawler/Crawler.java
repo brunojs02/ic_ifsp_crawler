@@ -13,7 +13,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class Crawler {
@@ -71,7 +70,7 @@ public class Crawler {
 			}
 		}
 		page.setLinksOnThisPage(links);
-		//crawlerDAO.save(page);
+		crawlerDAO.save(page);
 	}
 	
 	private Page generatePage(Link link, Document doc){

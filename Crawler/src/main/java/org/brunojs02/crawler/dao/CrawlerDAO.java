@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import org.brunojs02.crawler.entities.Link;
 import org.brunojs02.crawler.entities.Page;
+import org.brunojs02.crawler.entities.Resource;
 
 public class CrawlerDAO {
 	
@@ -27,6 +28,7 @@ public class CrawlerDAO {
 			}
 			savePage(page);
 			con.commit();
+			saveResource(page);
 			saveOrUpdatePageLink(page);
 		}catch (SQLException e) {
 			try {
@@ -117,6 +119,33 @@ public class CrawlerDAO {
         }
 		stmt.close();
 		log.info("Link saved on DB: " + link.getLink());
+	}
+	
+	private void saveResource(Page page){
+		log.info("Starting save a list of resources from page on BD");
+		String sql = "insert into resource (request_id, resource_page_id, url, data_length, type_resource) values (?, ?, ?, ?, ?)";
+		for(Resource re:page.getResources()){
+			try{
+				PreparedStatement stmt = con.prepareStatement(sql);
+				stmt.setString(1, re.getRequestId());
+				stmt.setInt(2, page.getId());
+				stmt.setString(3, re.getUrl());
+				stmt.setString(4, re.getDataLength());
+				stmt.setString(5, re.getType());
+				stmt.executeUpdate();
+				stmt.close();
+				con.commit();
+			}catch(SQLException e) {
+				e.printStackTrace();
+				log.info(re.toString());
+				try {
+					con.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		log.info("list of resources from page saved on BD");
 	}
 	
 	

@@ -10,7 +10,7 @@ public class Factory {
 	private String server = "jdbc:mysql://localhost/";
 	private String database = "webcrawler";
 	private String username = "root";
-	private String password = "1234";
+	private String password = "33960206";
 	
 	public Connection getConnection(){
 		try{

@@ -68,7 +68,7 @@ public class WebDriverCustom {
 		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/../drivers/chrome/chromedriver");
 		DesiredCapabilities caps = DesiredCapabilities.chrome();
 		HashMap<String, Object> preferences = new HashMap<String, Object>(); 
-		preferences.put("profile.managed_default_content_settings.images", 2);
+		//preferences.put("profile.managed_default_content_settings.images", 2);
 		ChromeOptions options = new ChromeOptions(); 
 		options.setExperimentalOption("prefs", preferences);
 		caps.setCapability(ChromeOptions.CAPABILITY, options);

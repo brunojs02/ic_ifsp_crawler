@@ -8,9 +8,13 @@ public class Resource {
 	public static final Integer OTHER    = Integer.valueOf(4);
 	
 	private String url;
-	private Integer type;
-	private Integer dataLength;
+	private String type;
+	private String dataLength;
 	private Double timeToLoad;
+	private String requestId;
+	
+	
+	public Resource(){}
 	
 	/**
 	 * @param url
@@ -18,7 +22,7 @@ public class Resource {
 	 * @param dataLength
 	 * @param timeToLoad
 	 */
-	public Resource(String url, Integer type, Integer dataLength, Double timeToLoad) {
+	public Resource(String url, String type, String dataLength, Double timeToLoad) {
 		this.url = url;
 		this.type = type;
 		this.dataLength = dataLength;
@@ -42,28 +46,28 @@ public class Resource {
 	/**
 	 * @return the type
 	 */
-	public Integer getType() {
+	public String getType() {
 		return type;
 	}
 
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(Integer type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
 	/**
 	 * @return the dataLength
 	 */
-	public Integer getDataLength() {
+	public String getDataLength() {
 		return dataLength;
 	}
 
 	/**
 	 * @param dataLength the dataLength to set
 	 */
-	public void setDataLength(Integer dataLength) {
+	public void setDataLength(String dataLength) {
 		this.dataLength = dataLength;
 	}
 
@@ -88,10 +92,25 @@ public class Resource {
 		this.timeToLoad = timeToLoad;
 	}
 	
+	/**
+	 * @return the requestId
+	 */
+	public String getRequestId() {
+		return requestId;
+	}
+
+	/**
+	 * @param requestId the requestId to set
+	 */
+	public void setRequestId(String requestId) {
+		this.requestId = requestId;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Resource [url=" + url + ", type=" + type + ", dataLength=" + dataLength + ", timeToLoad=" + timeToLoad
-				+ "]";
+				+ ", requestId=" + requestId + "]";
 	}
 	
 }
